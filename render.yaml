@@ -1,0 +1,55 @@
+# render.yaml — SmartBank Wallet deployment on Render.com
+# Docs: https://render.com/docs/blueprint-spec
+#
+# HOW TO USE:
+#   1. Push this repo to GitHub
+#   2. Go to https://dashboard.render.com/
+#   3. Click "New" → "Blueprint"
+#   4. Connect your GitHub repo → Render auto-detects this file
+#   5. Set the env vars listed below in the Render dashboard
+
+services:
+  # ──────────────────────────────────────────────
+  # Spring Boot Backend (Web Service)
+  # ──────────────────────────────────────────────
+  - type: web
+    name: smartbank-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free                # Change to "starter" for always-on
+    healthCheckPath: /api/actuator/health
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: smartbank-db
+          property: connectionString
+      - key: DB_USERNAME
+        fromDatabase:
+          name: smartbank-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: smartbank-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true   # Render auto-generates a secret
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: "587"
+      - key: MAIL_USERNAME
+        sync: false           # Set this manually in Render dashboard
+      - key: MAIL_PASSWORD
+        sync: false           # Set this manually in Render dashboard
+      - key: CORS_ORIGINS
+        sync: false           # Set to your Vercel frontend URL, e.g. https://smartbank.vercel.app
+
+  # ──────────────────────────────────────────────
+  # PostgreSQL Database
+  # ──────────────────────────────────────────────
+databases:
+  - name: smartbank-db
+    plan: free                # Free tier: 90-day expiry on Render
+    databaseName: smartbank_db
+    user: smartbank_user

@@ -1,0 +1,84 @@
+# ============================================================
+# SmartBank Wallet — .gitignore
+# ============================================================
+
+# ──────────────────────────────────────────────
+# SECRETS & ENVIRONMENT (NEVER commit these)
+# ──────────────────────────────────────────────
+.env
+*.env.local
+*.env.production
+*.env.development
+node_modules/
+
+# ──────────────────────────────────────────────
+# JAVA / MAVEN (Backend)
+# ──────────────────────────────────────────────
+backend/target/
+backend/logs/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ──────────────────────────────────────────────
+# NODE / REACT (Frontend)
+# ──────────────────────────────────────────────
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnp
+frontend/.pnp.js
+
+# ──────────────────────────────────────────────
+# IDE & EDITORS
+# ──────────────────────────────────────────────
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ──────────────────────────────────────────────
+# DOCKER
+# ──────────────────────────────────────────────
+# Keep docker-compose.yml but ignore local overrides
+docker-compose.override.yml
+
+# ──────────────────────────────────────────────
+# UPLOADS & GENERATED FILES
+# ──────────────────────────────────────────────
+uploads/
+logs/
+*.log
+*.pdf
+
+# ──────────────────────────────────────────────
+# GSD / CLAUDE AGENT FILES (Dev tooling)
+# ──────────────────────────────────────────────
+.claude/
+.planning/
+
+# ──────────────────────────────────────────────
+# MISC
+# ──────────────────────────────────────────────
+*.tmp
+*.bak
+*.orig
